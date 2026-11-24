@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#211916"><title>Window Seat · The Train Beyond the Sea</title>
+<link rel="stylesheet" href="seat.css"></head>
+<body><main id="room" aria-label="A sunset journey aboard the Sea Line">
+<img id="carriage" src="assets/carriage.webp" alt="Sunset through the open window of a wood-trimmed Japanese train, with an olive ticket book on the red seat.">
+<img id="land" src="assets/countryside.webp" alt="" hidden>
+<img id="approach" src="assets/approach.webp" hidden alt="">
+<img id="platform" src="assets/platform.webp" hidden alt="">
+<img id="counter" src="assets/counter.webp" hidden alt="">
+<canvas id="view" aria-label="View from the window seat. Use the left and right arrow keys or drag to turn your head." tabindex="0"></canvas>
+<header><span class="line-name">海線 <i></i> Sea Line</span><button id="sound" aria-pressed="true" aria-label="Mute train sound" title="Mute train sound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z M16 8q4 4 0 8m3-11q7 7 0 14" id="sound-path"/></svg></button></header>
+<div class="shade"></div>
+<section id="dock" aria-label="Ride controls">
+<div class="caption"><p>The Train Beyond the Sea</p><h1>Window seat</h1></div>
+<div class="controls"><button class="ride" id="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path id="play-path" d="m8 5 11 7-11 7z"/></svg><span id="play-label">Open ticket book</span></button><span class="time" id="clock" aria-hidden="true">0:15</span><div class="timeline" aria-hidden="true"><i id="progress"></i></div><button class="look" id="look" aria-label="Look toward the aisle"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12q10-14 20 0-10 14-20 0Z"/><circle cx="12" cy="12" r="2.6"/></svg><span id="look-label">Look toward aisle</span></button></div>
+</section><button id="notebook" hidden aria-label="Open the ticket book on the seat" title="Ticket book">✧</button>
+<dialog id="ticket" aria-labelledby="ticket-heading">
+<div class="ticket-paper"><div class="book-top"><span>Sea Line <i>乗車券</i></span><button class="close" id="close-ticket" aria-label="Close ticket book">×</button></div>
+<div class="ticket-head"><div><p>Naruto</p><h2 id="ticket-heading">Konoha</h2></div><span class="seal" aria-hidden="true">木ノ葉</span></div>
+<div id="passage"><p class="place">Ichiraku Ramen</p><div id="kept" hidden><span id="watch-line"></span><blockquote id="memory-line"></blockquote></div>
+<div class="ticket-actions"><button class="ink" id="depart">Depart for Konoha</button><button class="paper-button" id="edit">Edit memory</button></div></div>
+<form id="memory" hidden><div class="fields"><label>Watch status<select id="watch-status"><option value="">Choose status</option><option>Watching</option><option>Finished</option><option>On hold</option><option>Plan to watch</option></select></label><label>Episode<input id="episode" type="number" min="1" max="99999" placeholder="—"></label></div>
+<label>A memory to keep<textarea id="note" rows="3" maxlength="4000" placeholder="What stayed with you?"></textarea></label>
+<div class="ticket-actions"><button class="ink" type="submit">Save memory</button><button type="button" id="cancel-edit" class="paper-button">Back to ticket</button></div></form>
+<p class="save-state" id="save-state" role="status"></p></div></dialog>
+<p class="sr" id="state" role="status"></p>
+</main><audio id="train-audio" preload="auto" src="assets/rail.mp3"></audio><script src="konoha.js"></script><script src="seat.js"></script></body></html>

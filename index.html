@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f9f6ec"><title>The Train Beyond the Sea · Memory Railway</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="src/vendor/three.min.js"></script><script defer src="src/stations.js"></script><script defer src="src/railway.js"></script><script defer src="src/app.js"></script>
+</head>
+<body>
+<svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="i-train" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="3" width="13" height="15" rx="4"/><path d="M8.5 6h7M6 12h12M12 8v4M8 18l-3 4m11-4 3 4M7 20h10"/><path d="M8.5 15h.1m6.8 0h.1" stroke-width="2.8"/></g></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h13a1 1 0 0 1 1 1v15H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Zm-1 14a2 2 0 0 1 2-2h13M8 4v12m3-8h5m-5 3h3"/></g></symbol>
+<symbol id="i-sound" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4Zm12-1q4 4 0 8m3-11q7 7 0 14"/></g></symbol>
+<symbol id="i-mute" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h4l5-4v14l-5-4H4Zm12 1 5 5m0-5-5 5"/></g></symbol>
+<symbol id="i-map" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m3 6 6-2 6 2 6-2v14l-6 2-6-2-6 2Zm6-2v14m6-12v14"/></g></symbol>
+<symbol id="i-ticket" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18v4a2 2 0 0 0 0 4v4H3v-4a2 2 0 0 0 0-4Zm12 2v1m0 2.5v1m0 2.5v1"/></g></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12m0-12L6 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2"/></g></symbol>
+</defs></svg>
+<div class="shell">
+<header><a href="#top" class="brand" id="home" aria-label="Memory Railway, return to departure"><span class="brand-icon"><svg><use href="#i-train"/></svg></span>Memory Railway</a>
+<div class="tools"><button class="sound" id="sound" aria-label="Turn ambient sound on" aria-pressed="false"><svg><use href="#i-mute"/></svg></button><button class="book-btn" id="book"><svg><use href="#i-book"/></svg>Ticket book</button></div></header>
+<main id="top">
+<section class="stage" id="stage" aria-label="Interactive Sea Line railway">
+<div id="world"></div><div class="wash"></div>
+<div class="hero">
+<div class="eyebrow"><span class="rule"></span><span id="kicker">THE SEA LINE</span></div>
+<h1 id="title">The Train<br><em>Beyond the Sea</em></h1>
+<p id="description">A little railway through the anime you remember.</p>
+<button class="primary" id="action"><svg><use href="#i-ticket"/></svg><span>Board the train</span></button>
+</div>
+<div class="scene-label"><span class="dot"></span><span id="caption">Seaside departure</span></div>
+<div class="people" id="people"></div>
+<div class="error" id="error" hidden>3D scenery needs WebGL. You can still use the station guide and ticket book.</div>
+</section>
+<div id="journey-controls" hidden><div class="focus-text"><span class="smallcaps" id="focus-label"></span><span id="focus-detail"></span></div><div class="trip-buttons"><button class="secondary" id="back"></button><button class="primary" id="forward"></button></div></div>
+<section class="guide" aria-labelledby="guide-title"><div class="guide-head"><div><div class="label-line"><span class="tiny-track"></span>ROUTE MAP</div><h2 id="guide-title">Station guide</h2></div><span class="route-count">Sea Line <i></i> 4 stops</span></div>
+<div id="stations" class="stations"></div></section>
+</main>
+<footer><span><svg><use href="#i-train"/></svg> Memory Railway</span><span>海の向こうの列車</span></footer>
+</div>
+<dialog id="journal" aria-label="Ticket book"><div class="journal-head"><div><div class="label-line">MEMORY RAILWAY</div><h2>Ticket book</h2></div><button class="icon-btn" id="close" aria-label="Close ticket book"><svg><use href="#i-close"/></svg></button></div>
+<div id="book-tabs" role="group" aria-label="Choose an anime"></div>
+<form id="entry"><div class="entry-title"><div id="entry-stamp"></div><div><span id="entry-place" class="smallcaps"></span><h3 id="entry-name"></h3></div></div>
+<div class="fields"><label>Watch status<select id="status"><option value="">Choose status</option><option>Watching</option><option>Finished</option><option>On hold</option><option>Plan to watch</option></select></label><label>Last watched<input type="date" id="date"></label><label>Season<input type="number" min="1" max="9999" placeholder="—" id="season"></label><label>Episode<input type="number" min="1" max="99999" placeholder="—" id="episode"></label></div>
+<label>A memory to keep<textarea id="note" rows="3" maxlength="4000" placeholder="Which moment stayed with you?"></textarea></label>
+<div class="save-row"><span id="saved" role="status">Stored on this device</span><button class="primary" type="submit">Save ticket</button></div></form></dialog>
+<div id="announce" class="sr" role="status" aria-live="polite"></div>
+</body></html>

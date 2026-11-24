@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2a1c1a">
+<title>The Train Beyond the Sea</title>
+<style>
+  :root { --paper: #fff4dc; --ink: #2d2220; --rose: #f2b58f; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #2a1c1a; color: var(--paper);
+    font: 15px/1.4 "Avenir Next", Avenir, "Segoe UI", system-ui, sans-serif; }
+  #view { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
+  .title { position: fixed; inset: 0; display: grid; place-content: end start; padding: 0 clamp(20px, 6vw, 90px) clamp(40px, 9vh, 110px);
+    background: linear-gradient(90deg, #1d1312cc, #1d131244 55%, transparent), linear-gradient(transparent 50%, #1d1312aa);
+    transition: opacity .9s ease, visibility .9s; }
+  .boarded .title { opacity: 0; visibility: hidden; }
+  .title p { margin: 0 0 6px; font: italic clamp(16px, 1.6vw, 22px) Georgia, serif; color: var(--rose); }
+  .title h1 { margin: 0 0 14px; font: 400 clamp(44px, 6.4vw, 96px)/1 "Iowan Old Style", Georgia, serif; letter-spacing: -.045em; }
+  .title .lede { max-width: 34em; margin: 0 0 26px; color: #f5e6cc; font-size: 16px; }
+  #board { justify-self: start; border: 0; border-radius: 999px; padding: 13px 22px; background: var(--paper); color: var(--ink);
+    font: 650 15px inherit; font-family: inherit; cursor: pointer; }
+  #board:focus-visible, #sound:focus-visible { outline: 2px solid var(--paper); outline-offset: 4px; }
+  .keys { margin-top: 18px; color: #e7d3b8; font-size: 13px; }
+  .keys kbd { font: 12px ui-monospace, monospace; border: 1px solid #fff1d855; border-radius: 4px; padding: 1px 5px; }
+  header { position: fixed; inset: 0 0 auto; display: flex; justify-content: space-between; align-items: center;
+    padding: max(18px, env(safe-area-inset-top)) clamp(16px, 4vw, 48px); pointer-events: none; }
+  .line { font: 15px Georgia, serif; letter-spacing: .08em; text-shadow: 0 1px 6px #0008; }
+  #sound { pointer-events: auto; border: 1px solid #fff1d855; background: #2a1c1a88; color: var(--paper); border-radius: 999px;
+    padding: 7px 13px; font: 13px inherit; font-family: inherit; backdrop-filter: blur(8px); cursor: pointer; }
+  .dot { position: fixed; left: 50%; top: 50%; width: 5px; height: 5px; margin: -2.5px; border-radius: 50%; background: #fff4dcbb;
+    box-shadow: 0 0 0 1px #2a1c1a55; opacity: 0; transition: opacity .3s; pointer-events: none; }
+  .boarded .dot { opacity: 1; }
+  #prompt { position: fixed; left: 50%; top: calc(50% + 34px); transform: translate(-50%, 6px); padding: 6px 12px; border-radius: 999px;
+    background: #2a1c1aa8; color: var(--paper); font-size: 13px; letter-spacing: .02em; opacity: 0; transition: opacity .25s, transform .25s;
+    pointer-events: none; white-space: nowrap; backdrop-filter: blur(6px); }
+  #prompt.show { opacity: 1; transform: translate(-50%, 0); }
+  #toast { position: fixed; left: clamp(16px, 4vw, 48px); bottom: max(28px, env(safe-area-inset-bottom)); max-width: calc(100% - 32px);
+    opacity: 0; transform: translateY(10px); transition: opacity .8s, transform .8s; pointer-events: none; text-shadow: 0 1px 8px #000a; }
+  #toast.show { opacity: 1; transform: none; }
+  #toast strong { display: block; font: 400 clamp(28px, 3.4vw, 46px)/1.05 "Iowan Old Style", Georgia, serif; letter-spacing: -.03em; }
+  #toast span { font: italic 16px Georgia, serif; color: #f6dcc0; }
+  #walk { position: fixed; right: 20px; bottom: max(24px, env(safe-area-inset-bottom)); width: 74px; height: 74px; border-radius: 50%;
+    border: 1px solid #fff1d866; background: #2a1c1a99; color: var(--paper); font: 600 13px inherit; font-family: inherit;
+    display: none; touch-action: none; backdrop-filter: blur(8px); }
+  @media (pointer: coarse) { .standing #walk { display: block; } .keys .desk { display: none; } }
+  @media (pointer: fine) { .keys .touch { display: none; } }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<canvas id="view" aria-label="First-person view from a window seat on a sunset train"></canvas>
+<header><span class="line">海線 · Sea Line</span><button id="sound" aria-pressed="true">Sound on</button></header>
+<section class="title">
+  <p>The Train Beyond the Sea</p>
+  <h1>Window seat</h1>
+  <div class="lede">A slow evening train along the coast. Each station is an anime you've watched. The first stop is Konoha.</div>
+  <button id="board">Take your seat</button>
+  <div class="keys"><span class="desk"><kbd>Mouse</kbd> look · <kbd>W A S D</kbd> walk · <kbd>E</kbd> or click to stand, sit and open doors · <kbd>Esc</kbd> frees the mouse</span><span class="touch">Drag to look · tap to stand, sit and open doors · hold Walk to move</span></div>
+</section>
+<i class="dot"></i>
+<div id="prompt" role="status"></div>
+<div id="toast" role="status"><strong></strong><span></span></div>
+<button id="walk" aria-label="Hold to walk forward">Walk</button>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
